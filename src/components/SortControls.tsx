@@ -1,7 +1,8 @@
 import React from 'react';
 import { ArrowUpDown } from 'lucide-react';
 
-export type SortField = 'name' | 'hp' | 'attack' | 'defense' | 'special-attack' | 'special-defense' | 'speed';
+//Due to the nature of the data returned from the API, we have to define the possible fields that can be used to sort the pokemon data
+export type SortField = 'name' | 'height' | 'weight' | 'base_experience';
 export type SortOrder = 'asc' | 'desc';
 
 interface SortControlsProps {
@@ -27,12 +28,9 @@ export const SortControls: React.FC<SortControlsProps> = ({
         className="rounded-lg border border-gray-300 px-3 py-2"
       >
         <option value="name">Name</option>
-        <option value="hp">HP</option>
-        <option value="attack">Attack</option>
-        <option value="defense">Defense</option>
-        <option value="special-attack">Sp. Attack</option>
-        <option value="special-defense">Sp. Defense</option>
-        <option value="speed">Speed</option>
+        <option value="height">Height</option>
+        <option value="weight">Weight</option>
+        <option value="base_experience">Experience</option>
       </select>
       <button
         onClick={() => onSortChange(sortField)}

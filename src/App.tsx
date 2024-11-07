@@ -51,31 +51,26 @@ function App() {
           });
         return conditions.length > 0 ? { _and: conditions } : {}; 
     };
-    //Sorting the pokemons based on the order clause
     const buildOrderBy = () => {
-        if (sortField === 'name') {
-            return [{ name: sortOrder }];
-          }
-          return [{
-            pokemon_v2_pokemonstats_aggregate: {
-              filter: {
-                pokemon_v2_stat: { name: { _eq: sortField } }
-              },
-              avg: { base_stat: sortOrder }
-            }
-          }];
+        return [{ [sortField]: sortOrder }];
     };
-
+    
+    
     //Fetching the pokemons data from the API based on the filters and current page number 
-    const { data, loading } = useQuery(GET_POKEMONS, {
+    const { data, loading,error } = useQuery(GET_POKEMONS, {
         variables: {
           offset: (currentPage - 1) * ITEMS_PER_PAGE,
           limit: ITEMS_PER_PAGE,
           where: buildWhereClause(),
           orderBy: buildOrderBy(),
+          
         },
       });
-    
+
+    // Check if there's any error
+    if (error) {
+        console.error('GraphQL Error:', error);
+      }
     //Handling the change in filters
     const handleFiltersChange = (newFilters: SearchFilters) => {
         setFilters(newFilters);
