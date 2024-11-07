@@ -2,6 +2,7 @@ import React ,{useState} from "react";
 import "./index.css";
 import { useQuery} from "@apollo/client";
 import {PokemonCard} from "./components/PokemonCard";
+import { TypeFilter } from './components/TypeFilter';
 import { GET_POKEMONS } from "./services/api";
 import { Loader2 } from 'lucide-react';
 import { Pagination } from "./components/Pagination";
@@ -17,6 +18,7 @@ function App() {
         statFilters: [],//Stat search filter eg. hp > 50
       });
     const [currentPage, setCurrentPage] = useState(1);
+    const [selectedType, setSelectedType] = useState('all');
     //Filtering the pokemons based on the where clause
     const buildWhereClause = () => {
         const conditions: any[] = [];
@@ -27,7 +29,13 @@ function App() {
             name: { _ilike: `%${filters.name}%` },
           });
         }
-
+        if (selectedType !== 'all') {
+            conditions.push({
+              pokemon_v2_pokemontypes: {
+                pokemon_v2_type: { name: { _eq: selectedType } },
+              },
+            });
+          }
         // Filter by stats if provided
         filters.statFilters.forEach((filter) => {
             conditions.push({
@@ -58,6 +66,13 @@ function App() {
         setFilters(newFilters);
         setCurrentPage(1);
       };
+    //Handling the change in type
+    const handleTypeChange = (type: string) => {
+        setSelectedType(type);
+        setCurrentPage(1);
+      };
+    
+    //Calculating the total number of pages based on the total pokemons count
     const totalPages = data?.pokemon_aggregate.aggregate.count
       ? Math.ceil(data.pokemon_aggregate.aggregate.count / ITEMS_PER_PAGE)
       : 0;
@@ -75,6 +90,9 @@ function App() {
         <div className="space-y-6 mb-8">
           <div className="flex flex-col gap-4">
             <SearchBar filters={filters} onFiltersChange={handleFiltersChange} />
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+            <TypeFilter selectedType={selectedType} onTypeChange={handleTypeChange} />
+            </div>
           </div>
         </div>
         
