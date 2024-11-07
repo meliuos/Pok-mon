@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-//Getting all pokemons with their types and stats from the API
+//Getting all pokemons with their types , stats and count of all of pokemons from the API
 export const GET_POKEMONS = gql`
   query GetPokemons(
     $limit: Int!
