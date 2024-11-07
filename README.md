@@ -10,6 +10,7 @@ This a Pokémon explorer web app that allows to search for Pokémons and filter 
 
 ### Prerequisites
 Before you begin, make sure you have the following installed:
+
 -Node js
 
 ### Clone the Repository
