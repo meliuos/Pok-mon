@@ -4,7 +4,7 @@ import { useQuery} from "@apollo/client";
 import {PokemonCard} from "./components/PokemonCard";
 import { GET_POKEMONS } from "./services/api";
 import { Loader2 } from 'lucide-react';
-
+import { Pagination } from "./components/Pagination";
 
 
 
@@ -24,6 +24,11 @@ function App() {
           orderBy: buildOrderBy(),
         },
       });
+
+    const totalPages = data?.pokemon_aggregate.aggregate.count
+      ? Math.ceil(data.pokemon_aggregate.aggregate.count / ITEMS_PER_PAGE)
+      : 0;
+
     return (
     <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -44,6 +49,13 @@ function App() {
                 ))}
                 </div>    
             )}
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+
        </div>
     </div>
   );
