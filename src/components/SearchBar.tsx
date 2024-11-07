@@ -28,7 +28,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ filters, onFiltersChange }
   const handleNameChange = (value: string) => {
     onFiltersChange({ ...filters, name: value });
   };
-
+  //adding a filter
   const addStatFilter = () => {
     onFiltersChange({
       ...filters,
@@ -36,7 +36,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ filters, onFiltersChange }
     });
     setNewStatFilter({ stat: 'hp', operator: 'gt', value: 0 });
   };
-
+  //Removing the stat filter based on the index
   const removeStatFilter = (index: number) => {
     const newFilters = [...filters.statFilters];
     newFilters.splice(index, 1);
