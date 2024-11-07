@@ -9,8 +9,11 @@ interface TypeFilterProps {
 }
 
 export const TypeFilter: React.FC<TypeFilterProps> = ({ selectedType, onTypeChange }) => {
+
+//Fetching the types of pokemon from the API
   const { data, loading } = useQuery(GET_POKEMON_TYPES);
 
+//Displaying the loading message if the data is still loading
   if (loading) {
     return (
       <div className="flex items-center gap-2">

@@ -28,7 +28,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ filters, onFiltersChange }
   const handleNameChange = (value: string) => {
     onFiltersChange({ ...filters, name: value });
   };
-  //adding a filter
+  //adding a filter based on the stat, operator and value
   const addStatFilter = () => {
     onFiltersChange({
       ...filters,
@@ -123,7 +123,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ filters, onFiltersChange }
             {filters.statFilters.map((filter, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full"
+                className="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full border border-grey-400 bg-white"
               >
                 <span className="text-sm">
                   {filter.stat} {filter.operator === 'gt' ? '>' : '<'} {filter.value}
