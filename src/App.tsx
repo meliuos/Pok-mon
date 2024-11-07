@@ -13,19 +13,22 @@ const ITEMS_PER_PAGE = 12;
 function App() {
     //Setting the initial state of the filters and current page
     const [filters, setFilters] = useState<SearchFilters>({
-        name: '',
-        statFilters: [],
+        name: '',//Name search filter
+        statFilters: [],//Stat search filter eg. hp > 50
       });
     const [currentPage, setCurrentPage] = useState(1);
     //Filtering the pokemons based on the where clause
     const buildWhereClause = () => {
         const conditions: any[] = [];
+
+        // Filter by name if provided
         if (filters.name) {
           conditions.push({
             name: { _ilike: `%${filters.name}%` },
           });
         }
 
+        // Filter by stats if provided
         filters.statFilters.forEach((filter) => {
             conditions.push({
               pokemon_v2_pokemonstats: {
@@ -36,9 +39,11 @@ function App() {
           });
         return conditions.length > 0 ? { _and: conditions } : {}; 
     };
-    //Sorting the pokemons based on the order by clause
+    //Sorting the pokemons based on the order clause
     const buildOrderBy = () => {
     };
+
+    //Fetching the pokemons data from the API based on the filters and current page number 
     const { data, loading } = useQuery(GET_POKEMONS, {
         variables: {
           offset: (currentPage - 1) * ITEMS_PER_PAGE,
@@ -47,6 +52,8 @@ function App() {
           orderBy: buildOrderBy(),
         },
       });
+    
+    //Handling the change in filters
     const handleFiltersChange = (newFilters: SearchFilters) => {
         setFilters(newFilters);
         setCurrentPage(1);

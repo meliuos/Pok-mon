@@ -12,7 +12,8 @@ export const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   onPageChange,
 }) => {
-  // Create an array of page numbers to display in the pagination component based on the current page and total pages count
+  // Create an array of page numbers to display in the pagination component based on the current page and total pages count eg. [1 ...  3 4 5 6 7 ... 10]
+  //Note: The pagination component will display a maximum of 5 pages at a time with the first and the last page always visible
   const pages = Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
     if (totalPages <= 5) return i + 1;
     if (currentPage <= 3) return i + 1;

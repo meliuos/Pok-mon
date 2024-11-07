@@ -4,6 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import App from './App.tsx';
 import "./index.css";
 
+//Instantiating the Apollo client with the uri of the API and the cache
 const client = new ApolloClient({
   uri: 'https://beta.pokeapi.co/graphql/v1beta',
   cache: new InMemoryCache(),

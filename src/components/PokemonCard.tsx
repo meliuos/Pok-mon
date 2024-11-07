@@ -26,6 +26,8 @@ interface Pokemon {
 interface PokemonCardProps {
   pokemon: Pokemon;
 }
+
+
 //Hard coded colors for each type of pokemon
 const typeColors: Record<string, string> = {
   normal: 'bg-gray-400',
@@ -47,6 +49,7 @@ const typeColors: Record<string, string> = {
   steel: 'bg-gray-500',
   fairy: 'bg-pink-400',
 };
+//StatIcon component to display the icon for each stat
 //using a switch case to return the icon for each stat
 const StatIcon: React.FC<{ statName: string }> = ({ statName }) => {
   switch (statName) {
@@ -67,11 +70,14 @@ const StatIcon: React.FC<{ statName: string }> = ({ statName }) => {
   }
 };
 
+
+//PokemonCard component to display the pokemon details
 export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   const getStatValue = (statName: string) => {
     const stat = pokemon.pokemon_v2_pokemonstats.find(
       (s) => s.pokemon_v2_stat.name === statName
     );
+    //returning the base stat value of the pokemon or 0 if not found
     return stat?.base_stat || 0;
   };
   const statsList = ["hp", "attack", "defense", "special-attack", "special-defense", "speed"];
