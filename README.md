@@ -2,6 +2,7 @@
 
 ## Description
 This a Pokémon explorer web app that allows to search for Pokémons and filter them by types,stats,etc...
+Using React , Tailwind CSS , Graphql to consume PokeApi
 
 ## Table of Contents
 - [Setup](#setup)
