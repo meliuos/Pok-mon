@@ -107,12 +107,20 @@ function App() {
                 ))}
                 </div>    
             )}
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
+        {
+            !loading && data?.pokemons.length === 0 && (
+                <div className="min-h-full text-center text-gray-600">No Pokémons found</div>
+            )
+        }
+        {
+            !loading && data?.pokemons.length > 0 && (
+                <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+                />
+            )
+        }
 
        </div>
     </div>
