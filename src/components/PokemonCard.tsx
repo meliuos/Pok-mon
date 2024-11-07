@@ -74,7 +74,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
     );
     return stat?.base_stat || 0;
   };
-
+  const statsList = ["hp", "attack", "defense", "special-attack", "special-defense", "speed"];
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105">
       <div className="p-4">
@@ -103,7 +103,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
         </div>
 
         <div className="grid grid-cols-2 gap-2">
-          {['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'].map(
+          {statsList.map(
             (statName) => (
               <div
                 key={statName}
