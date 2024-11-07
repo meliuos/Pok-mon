@@ -80,6 +80,7 @@ function App() {
         
             {loading && (<div className="min-h-screen flex items-center justify-center">
                 <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+                <span className="m-2 text-grey-800">Loading Pokémons</span>
                 </div>)}
             {!loading && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
