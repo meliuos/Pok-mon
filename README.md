@@ -1,15 +1,13 @@
 # Project Name
 
 ## Description
-A brief description of your project. What does it do? Why is it useful?
+This a Pokémon explorer web app that allows to search for Pokémons and filter them by types,stats,etc...
 
 ## Table of Contents
 - [Setup](#setup)
 - [Usage](#usage)
 - [Contributing](#contributing)
-### Setup
-Simply Run this command
-`npm install`
+
 ### Prerequisites
 Before you begin, make sure you have the following installed:
 -Node js
@@ -17,5 +15,20 @@ Before you begin, make sure you have the following installed:
 ### Clone the Repository
 First, clone this repository to your local machine:
 
-```bash
+`
 git clone https://github.com/meliuos/Pok-mon
+
+`
+
+### Setup
+Simply Run this command
+`npm install`
+
+### Usage
+Run this command
+`npm run dev`
+
+### Contributing
+-Mootez Souilem
+
+Thank you  ...
