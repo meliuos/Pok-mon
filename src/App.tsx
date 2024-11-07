@@ -7,7 +7,7 @@ import { GET_POKEMONS } from "./services/api";
 import { Loader2 } from 'lucide-react';
 import { Pagination } from "./components/Pagination";
 import {SearchBar,type SearchFilters} from "./components/SearchBar";
-
+import {SortControls,SortField,SortOrder} from "./components/SortControls";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -19,6 +19,9 @@ function App() {
       });
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedType, setSelectedType] = useState('all');
+    const [sortField, setSortField] = useState<SortField>('name');
+    const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
+    
     //Filtering the pokemons based on the where clause
     const buildWhereClause = () => {
         const conditions: any[] = [];
@@ -29,6 +32,7 @@ function App() {
             name: { _ilike: `%${filters.name}%` },
           });
         }
+        // Filter by type if provided
         if (selectedType !== 'all') {
             conditions.push({
               pokemon_v2_pokemontypes: {
@@ -49,6 +53,17 @@ function App() {
     };
     //Sorting the pokemons based on the order clause
     const buildOrderBy = () => {
+        if (sortField === 'name') {
+            return [{ name: sortOrder }];
+          }
+          return [{
+            pokemon_v2_pokemonstats_aggregate: {
+              filter: {
+                pokemon_v2_stat: { name: { _eq: sortField } }
+              },
+              avg: { base_stat: sortOrder }
+            }
+          }];
     };
 
     //Fetching the pokemons data from the API based on the filters and current page number 
@@ -71,7 +86,16 @@ function App() {
         setSelectedType(type);
         setCurrentPage(1);
       };
-    
+    //Handling the change in sort field and order
+    const handleSortChange = (field: SortField) => {
+        if (field === sortField) {
+          setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+          setSortField(field);
+          setSortOrder('asc');
+        }
+        setCurrentPage(1);
+      };
     //Calculating the total number of pages based on the total pokemons count
     const totalPages = data?.pokemon_aggregate.aggregate.count
       ? Math.ceil(data.pokemon_aggregate.aggregate.count / ITEMS_PER_PAGE)
@@ -92,6 +116,13 @@ function App() {
             <SearchBar filters={filters} onFiltersChange={handleFiltersChange} />
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
             <TypeFilter selectedType={selectedType} onTypeChange={handleTypeChange} />
+            <div className="ml-auto">
+                <SortControls
+                  sortField={sortField}
+                  sortOrder={sortOrder}
+                  onSortChange={handleSortChange}
+                />
+              </div>
             </div>
           </div>
         </div>
